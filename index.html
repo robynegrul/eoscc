@@ -8,28 +8,18 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
-    <div class="container">
+<body class="dark-mode">
+    <div class="eos-container">
     <h1 class>Light control</h1>
 
     <button id="connect-button" class="btn">Connect Device</button>
 
-    <div class="control-group">
-        <input
-        type="range"
-        class="kawaii"
-        id="brightness-slider"
-        min="0"
-        max="9"
-        step="1"
-        value="0">
-        <label for="brightness-slider">
-            <span id="brightness-value">0</span>
-        </label>
-        </input>
+    <div class="eos-panel">
+        <input type="range" class="eos-slider" id="brightness-slider" step="1"/>
+        <span id="brightness-value" class="eos-label">0</span>
     </div>
 
-    <script src="lenovo/legion/slim7gen7.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 
 </html>

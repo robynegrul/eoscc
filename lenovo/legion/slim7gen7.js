@@ -14,20 +14,17 @@ const Commands = {
 
 const clamp = (x, a, b) => Math.min(Math.max(x, a), b);
 
-class LenovoLegionSlim7Gen7Kb {
+export default class LenovoLegionSlim7Gen7Kb {
     #handle;
 
     static get VID() { return LENOVO_VID; };
     static get PID() { return ITEDEV_VID; };
 
-    constructor(hnd) {
-        this.#handle = hnd ? hnd : LenovoLegionSlim7Gen7Kb.connectAuto();
-    };
+    static get minBrightness() { return BRIGHTNESS_MIN; };
+    static get maxBrightness() { return BRIGHTNESS_MAX; };
 
-    static new = async function(hnd) {
-        return new LenovoLegionSlim7Gen7Kb(
-            hnd ? hnd : await LenovoLegionSlim7Gen7Kb.connectAuto()
-        );
+    constructor(hnd) {
+        this.#handle = hnd;
     };
 
     isOpen = function() {
@@ -51,7 +48,7 @@ class LenovoLegionSlim7Gen7Kb {
             await hnd.open();
 
             console.log(`Connected to ${hnd.productName}`);
-            return hnd;
+            return new LenovoLegionSlim7Gen7Kb(hnd);
         } catch (error) {
             console.log(`Failed to connect: ${error.message}`);
             return null;
@@ -68,13 +65,13 @@ class LenovoLegionSlim7Gen7Kb {
 
             if (!hnd) {
                 console.log("Device needs manual connection");
-                hnd = await this.connectManual();
-                return hnd;
+                // hnd = await this.connectManual();
+                return null;
             }
 
             await hnd.open();
             console.log(`Connectedd to ${hnd.productName}`);
-            return hnd;
+            return new LenovoLegionSlim7Gen7Kb(hnd);
         } catch (error) {
             console.log(`Failed to connect: ${error.message}`);
             return null;
@@ -127,22 +124,3 @@ class LenovoLegionSlim7Gen7Kb {
         }
     };
 }
-
-let bSlider = document.getElementById("brightness-slider");
-let bIndicator = document.getElementById("brightness-value");
-
-let kb = null;
-
-document.getElementById("connect-button").addEventListener("click", async () => {
-    kb = await LenovoLegionSlim7Gen7Kb.new(null);
-
-    let brightness = await kb.getBrightness();
-    bSlider.value = brightness;
-    bIndicator.textContent = brightness;
-});
-
-bSlider.addEventListener("input", async () => {
-    const value = parseInt(bSlider.value, 10);
-    bIndicator.textContent = value;
-    await kb.setBrightness(value);
-})
