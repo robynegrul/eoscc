@@ -42,7 +42,7 @@ body {
     border: 0.2rem solid var(--primary-dark);
     border-radius: 0.5rem;
 
-    margin: min(0.5rem, 10%) auto;
+    margin: min(0.5rem, 10%) 0.2rem min(0.5rem, 10%);
 
     justify-content: center;
     align-items: center;

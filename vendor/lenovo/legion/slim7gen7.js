@@ -14,11 +14,11 @@ const Commands = {
 
 const clamp = (x, a, b) => Math.min(Math.max(x, a), b);
 
-export default class LenovoLegionSlim7Gen7Kb {
+export class LenovoLegionSlim7Gen7Kb {
     #handle;
 
     static get VID() { return LENOVO_VID; };
-    static get PID() { return ITEDEV_VID; };
+    static get PID() { return ITEDEV_PID; };
 
     static get minBrightness() { return BRIGHTNESS_MIN; };
     static get maxBrightness() { return BRIGHTNESS_MAX; };
@@ -27,56 +27,7 @@ export default class LenovoLegionSlim7Gen7Kb {
         this.#handle = hnd;
     };
 
-    isOpen = function() {
-        return this.#handle && this.#handle.opened;
-    };
-
-    static connectManual = async () => {
-        try {
-            const filters = [{
-                vendorId: LENOVO_VID,
-                productId: ITEDEV_PID,
-            }];
-
-            const devs = await navigator.hid.requestDevice({filters});
-            if (devs.length === 0) {
-                console.log("No matching device selected.");
-                return null;
-            }
-
-            let hnd = devs[0];
-            await hnd.open();
-
-            console.log(`Connected to ${hnd.productName}`);
-            return new LenovoLegionSlim7Gen7Kb(hnd);
-        } catch (error) {
-            console.log(`Failed to connect: ${error.message}`);
-            return null;
-        }
-    };
-
-    static connectAuto = async () => {
-        try {
-            const devs = await navigator.hid.getDevices();
-            let hnd = devs.find(
-                (d) => d.vendorId === LENOVO_VID
-                    && d.productId === ITEDEV_PID
-            );
-
-            if (!hnd) {
-                console.log("Device needs manual connection");
-                // hnd = await this.connectManual();
-                return null;
-            }
-
-            await hnd.open();
-            console.log(`Connectedd to ${hnd.productName}`);
-            return new LenovoLegionSlim7Gen7Kb(hnd);
-        } catch (error) {
-            console.log(`Failed to connect: ${error.message}`);
-            return null;
-        }
-    };
+    isOpen = () => this.#handle && this.#handle.opened;
 
     setBrightness = async (value) => {
         if (!this.isOpen()) {
