@@ -14,7 +14,7 @@ const Commands = {
 
 const clamp = (x, a, b) => Math.min(Math.max(x, a), b);
 
-export default class LenovoLegionSlim7Gen7Kb {
+export class LenovoLegionSlim7Gen7Kb {
     #handle;
 
     static get VID() { return LENOVO_VID; };
