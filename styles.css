@@ -7,100 +7,115 @@
     --bg-accent-light: #8DD8FF;
     --fg-accent-light: #BBFBFF;
 
-/* 
-    --bg-accent-dark: #8F87F1;
-    --fg-accent-dark: #C68EFD;
-    --bg-accent-light: #E9A5F1;
-    --fg-accent-light: #FED2E2;
- */
+    /* Alternate palette: */
+    /*
+    --bg-alt-accent-dark: #8F87F1;
+    --fg-alt-accent-dark: #C68EFD;
+    --bg-alt-accent-light: #E9A5F1;
+    --fg-alt-accent-light: #FED2E2;
+    */
 }
 
-html {
-    margin: 0px;
-    height: 100%;
+html, body {
+    margin: 0;
+    padding: 0;
     width: 100%;
+    height: 100%;
 }
 
 body {
     background-color: var(--bg-dark);
     color: var(--bg-light);
-
-    text-align: center;
     font-family: sans-serif;
-    font-size: 40pt;
-
-    min-height: 100%;
-    width: 100%;
-    margin: 0px;
+    font-size: clamp(1rem, 2vw, 2rem);
 
     display: flex;
     flex-direction: column;
-
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+
+    text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
+/* Header styling */
 .eos-header {
-    margin-top: auto;
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 3vw, 3rem);
 }
 
+/* Main container */
 .eos-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 
-    height: auto;
-    width: 80%;
+    width: clamp(280px, 80%, 700px);
+    min-height: 300px;
 
     gap: 1rem;
 
-    justify-content: space-evenly;
-    align-items: center;
-
-    /* TODO: apply relevant color */
     background-color: var(--fg-accent-dark);
-
-    border-radius: 1rem;
     border: 0.2rem solid var(--bg-accent-dark);
+    border-radius: 1rem;
+    box-shadow: 0 0 3rem var(--bg-accent-dark);
 
-    padding: 5%;
-
-    box-shadow: 0rem 0rem 10rem var(--bg-accent-dark);
+    padding: clamp(1rem, 4vw, 3rem);
+    box-sizing: border-box;
 }
 
+/* Label before sliders */
 .eos-label {
-    font-size: 1.75rem;
-
-    margin-right: auto;
+    align-self: flex-start;
+    font-size: clamp(1rem, 2vw, 1.5rem);
 }
 
+/* Slider container */
 .eos-slider {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
     width: 100%;
-    height: fit-content;
+    height: clamp(30px, 5vw, 60px);
 
-    justify-content: space-evenly;
-    align-items: center;
-
-    /* TODO: apply relevant color */
     background-color: var(--bg-accent-light);
-
-    border-radius: 1rem;
     border: 0.2rem solid var(--fg-accent-light);
+    border-radius: 1rem;
 
-    padding: 1% 5%;
-    gap: 10%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    gap: 1rem;
 }
 
+/* Actual slider bar */
 .eos-slider-bar {
     appearance: none;
+    width: 100%;
+    height: 0.2rem;
 
-    /* TODO: apply relevant color */
     background-color: var(--fg-accent-dark);
+    border-radius: 0.3rem;
 
-    height: 0.2em;
-    width: 60%;
+    cursor: pointer;
+}
 
-    border-radius: 0.1rem;
+/* For better responsiveness on small screens */
+@media (max-width: 600px) {
+    .eos-container {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .eos-slider {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .eos-slider-bar {
+        width: 100%;
+    }
 }
